@@ -1,6 +1,9 @@
 from flask import Flask, render_template, url_for
+from forms import RegistrationForm, LoginForm
 import datetime
 app = Flask(__name__)
+
+app.config['SECRET_KEY'] = '432798b5b6902e2bf5e1f02f993d824c'
 
 posts = [{
     '_id': 0,
@@ -21,6 +24,18 @@ posts = [{
 @app.route('/home')
 def home():
     return render_template('home.html', posts=posts, title='home')
+
+
+@app.route('/register')
+def register():
+    form = RegistrationForm()
+    return render_template('register.html', title='Register', form=form)
+
+
+@app.route('/login')
+def login():
+    form = LoginForm()
+    return render_template('login.html', title='Login', form=form)
 
 
 @app.route('/about')
